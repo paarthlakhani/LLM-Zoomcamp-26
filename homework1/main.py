@@ -26,6 +26,8 @@ for file in files:
     documents.append(doc)
 
 print(len(documents)) # 72
+# Q1. How many lesson pages
+# 72
 
 index = Index(
     text_fields=["content"],
@@ -50,6 +52,10 @@ print([doc["filename"] for doc in search_results]) # '01-agentic-rag/lessons/14-
 # '01-agentic-rag/lessons/11-agents-intro.md',
 # '01-agentic-rag/lessons/16-other-frameworks.md']
 
+# Q2. Indexing and searching
+# What's the filename of the first result?
+# '01-agentic-rag/lessons/14-agentic-loop.md'
+
 # Building RAG Agent
 load_dotenv()
 openai_client = OpenAI()
@@ -69,11 +75,15 @@ print(answer)
 
 print(usage) # 7125
 
+# Q3. RAG 
 # Use gpt-5.4-mini. How many input (prompt) tokens did we send to the model for this request?
 # 7125
 
 chunks = chunk_documents(documents, size=2000, step=1000)
 print(len(chunks)) # 295
+# Q4. Chunking
+# How many chunks do you get?
+# 295
 
 # Q5
 index_chunks = Index(
@@ -94,6 +104,10 @@ rag_agent = RAGBase(
 answer, usage = rag_agent.rag(question_chunks)
 print(answer)
 print(usage) # 2308 Almost 3x less than the original usage
+
+# Q5. RAG with chunking
+# Compare the input tokens with Q3. How many fewer input tokens does the chunked version send?
+# 2308 Almost 3x less than the original usage
 
 # 06
 def search(query: str) -> dict[str, str]:
@@ -132,3 +146,6 @@ search_calls = [
 ]
 
 print(len(search_calls)) # 4
+# Q6. Turning it into an agent
+# How many times did the agent call search?
+# 4
